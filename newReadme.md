@@ -61,27 +61,15 @@ https://github.com/almogdadjabir/POS_Lenadorsystems/assets/49059742/31a81392-1fd
 
 ## Screens
 - SplashScreen
+    1. Activity with Lottie-file animation.
 - MainActivity Screen
     1. List of breeds as Tabs.
-    2. Manage the cart </br>
-       a. Increase the qty. </br>
-       b. Decrease the qty. </br>
-       c. Add discount (per item). </br>
-       d. Remove from cart. </br>
-    3. Calculate</br>
-       a. Total.</br>
-       b. Tax.</br>
-       c. SubTotal.</br>
-       d. Total QTY.</br>
-       d. Total Discount.</br>
-- AddProduct Screen</br>
-  a. Add New Product.</br>
-  NOTE: In this feature, I have implemented both practices:</br>
-  a. Adding a product using a custom dialog.</br>
-  b. Adding a product through an activity triggered by an intent that waits for a result, and I have also implemented the intent extras.
-  </br>
-- Report Screen</br>
-  a. see all previous sales reports.
+         a. Dynamic Tab with Fragment.
+    3. List of dogs filtrate by breeds </br>
+       a. Add to Favorite. </br>
+- Favorite Screen</br>
+  a. Get All Dogs from that add to favorite from Database</br>
+  b. Remove from Favourite (remove from UI and Database).
 
 <br>
 <hr>
@@ -95,43 +83,38 @@ I have employed the MVVM architecture, utilizing Room for data storage, DAO for 
 <hr>
 <be>
 
-## Integration with Epson Printer SDK:
-<br>
 
-Unfortunately, I do not have access to the printer required for testing the integration part. Consequently, I have not been able to implement the integration. However, I have created a class named "PrintMaster" that functions as a master class, designed to encompass various types of printers that our POS system should be compatible with. Furthermore, I have developed a function that I execute after payment to simulate the printing functionality.
+<be>
 
-<br>
+- Add Dynamic Tab with his own Fragment.
 
 ```java
-printInvoice(
-    orders, // orders list
-    invoiceId, // invoice Id
-    totalTextView.getText().toString(), // Total
-    subTotalTextView.getText().toString(), // Sub Total
-    qtyTextView.getText().toString(), // Total Quantities
-    discountTextView.getText().toString(), // Total Discounts
-    taxTextView.getText().toString() // Tax on Total
-);
+private void getBreeds() {
+        dogBreedsViewModel.getDogBreedsLiveData().observe(this, dogsResponse -> {
+            mShimmerViewContainer.stopShimmerAnimation();
+            mShimmerViewContainer.setVisibility(View.GONE);
+            if (dogsResponse != null) {
+
+
+                List<String> breeds = dogsResponse.getMessage();
+
+                saveListToSharedPreferences(breeds, "breeds");
+
+                for (String breed : breeds) {
+                    mTabLayout.addTab(mTabLayout.newTab().setText(breed));
+                }
+
+                BreedsFragmentAdapter mBreedsFragmentAdapter = new BreedsFragmentAdapter(getSupportFragmentManager());
+                mBreedsFragmentAdapter.setDogBreeds(breeds);
+                viewPager.setAdapter(mBreedsFragmentAdapter);
+                viewPager.setCurrentItem(0);
+
+            }
+        });
+    }
 ```
 
 <br>
 <hr>
 <be>
 
-## Tax Calculation:
-<br>
-
-I've added a switch to handle tax calculations, allowing both inclusive and exclusive methods. The switch defaults to the inclusive mode. When users toggle it, the calculation method changes accordingly, updating all the calculations based on the chosen tax type.
-
-
-<br>
-
-```java
-public static double taxCalculator (double amount, boolean isExclusive){
-    if(isExclusive) {
-        return (amount * (1 + taxRate / 100)) - amount;
-    }else{
-        return amount - (amount / (1 + taxRate / 100));
-    }
-}
-```
