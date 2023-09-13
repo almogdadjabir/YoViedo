@@ -62,7 +62,7 @@ https://github.com/almogdadjabir/POS_Lenadorsystems/assets/49059742/31a81392-1fd
 ## Screens
 - SplashScreen
 - MainActivity Screen
-    1. Add To Cart
+    1. List of breeds as Tabs.
     2. Manage the cart </br>
        a. Increase the qty. </br>
        b. Decrease the qty. </br>
