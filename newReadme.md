@@ -45,6 +45,8 @@ https://github.com/almogdadjabir/POS_Lenadorsystems/assets/49059742/31a81392-1fd
 
 ## Database Schema
 
+We are using Room as an Object-Relational Mapping (ORM) tool to manage our SQLite database. Currently, we have only one table that handles the favorite feature, and here is the schema for the "Dog" table:
+
 #### Dog Table
 
 | #     | title        | Type   | Note   |
@@ -53,7 +55,33 @@ https://github.com/almogdadjabir/POS_Lenadorsystems/assets/49059742/31a81392-1fd
 | 2     | image        | String |        |
 | 3     | breed        | String |        |
 
+<br>
+This "Dog" table serves as the foundation for managing our favorite feature within the database.
+<br><br>
 
+```java
+@Dao
+public interface DogDao {
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insert(Dog dog);
+
+    @Update
+    void update(Dog product);
+
+    @Delete
+    void delete(Dog product);
+
+    @Query("Delete FROM dog_table")
+    void deleteAllDogs();
+
+    @Query("SELECT * FROM dog_table")
+    LiveData<List<Dog>> getAllDogs();
+
+    @Query("SELECT * FROM dog_table WHERE breed = :breeds")
+    LiveData<List<Dog>> getDogByBreeds(String breeds);
+}
+```
 
 <br>
 <hr>
