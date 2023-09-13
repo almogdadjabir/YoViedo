@@ -61,16 +61,15 @@ https://github.com/almogdadjabir/POS_Lenadorsystems/assets/49059742/31a81392-1fd
 
 ## Screens
 - SplashScreen
-    1. Activity with Lottie-file animation.
+    1. An activity featuring a Lottie-file animation.
 - MainActivity Screen
-    1. List of breeds as Tabs.
-         a. Dynamic Tab with Fragment.
-    3. List of dogs filtrate by breeds </br>
-       a. Add to Favorite. </br>
+    1. A screen displaying a list of breeds as tabs.</br>
+         a. Each tab is dynamic and corresponds to a fragment.</br>
+    3. A list of dogs filtered by breeds </br>
+       a.Ability to add dogs to favorites. </br>
 - Favorite Screen</br>
-  a. Get All Dogs from that add to favorite from Database</br>
-  b. Remove from Favourite (remove from UI and Database).
-
+    1. Displays all dogs that have been added to the favorites.</br>
+    2. Provides an option to remove dogs from favorites, both from the UI and the database.
 <br>
 <hr>
 <be>
